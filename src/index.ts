@@ -1,36 +1,28 @@
 import express from "express";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
+import * as t from "./types.js";
+import { router } from "./router/recipes.js";
 
-const app = express();
+const app: t.App = express();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const publicDirectoryPath = path.join(__dirname, "./public");
+app.use((req: t.Req, res: t.Res, next: t.Next): void => {
+    let info: t.ReqInfo;
+    if (req !== undefined) {
+        info = req;
+        console.log(
+            `New request to: ${info.method} 
+            ${info.path} at ${new Date().toISOString()}`
+        );
+    }
 
-app.use((req, res, next) => {
-    const { method, path } = req;
-    console.log(
-        `New request to: ${method} ${path} at ${new Date().toISOString()}`
-    );
-    console.log(res.status);
-    next();
+    if (res !== undefined) console.log(res.status);
+
+    if (next !== undefined) next();
 });
 
-app.use(express.static(publicDirectoryPath));
-
-app.get("/", (req, res) => {
-    console.log(req.url);
-    res.send("Hello from the server!");
-});
-
-app.get("/:name", (req, res) => {
-    console.log(req.url);
-    res.send(`Welcome to Express Recipes, ${req.params.name}!`);
-});
+app.use("/api/v1/recipes", router);
 
 const port: string | number = process.env["PORT"] || 8080;
 
-app.listen(port, () => {
+app.listen(port, (): void => {
     console.log(`Server is up on port ${port}`);
 });

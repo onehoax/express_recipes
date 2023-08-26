@@ -9,9 +9,9 @@
         "trailingComma": "none"
     },
     "scripts": {
-        "start": "tsc && node ./dist/index.js",
+        "start": "tsc && node ./dist/controller/recipes.js",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "nodemon --watch ./src/**/*.ts --ext ts --exec ts-node-esm ./src/index.ts",
+        "dev": "nodemon --watch ./src/**/index.ts --ext ts --exec ts-node-esm ./src/index.ts",
         "tsc": "tsc",
         "lint": "eslint src/",
         "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json|md)\""
