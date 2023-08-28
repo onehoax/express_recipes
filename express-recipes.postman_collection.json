@@ -1,0 +1,39 @@
+{
+	"info": {
+		"_postman_id": "23f75e62-7bdf-49f4-b8fb-8ad866d37344",
+		"name": "express-recipes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Request 1",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Edamame recipes\",\n  \"healthLabels\": [\n    \"Sugar-Conscious\",\n    \"Vegan\",\n    \"Vegetarian\",\n    \"Peanut-Free\",\n    \"Tree-Nut-Free\",\n    \"Alcohol-Free\"\n  ],\n  \"cookTimeMinutes\": 127,\n  \"prepTimeMinutes\": 20,\n  \"ingredients\": [\n    \"salt\",\n    \"1 one-pound bag edamame\",\n    \"1 teaspoon Seasoned Salt\"\n  ]\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/recipes",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"recipes"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

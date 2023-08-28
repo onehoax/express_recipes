@@ -2,16 +2,22 @@ import * as express from "express";
 
 type App = express.Express;
 type Router = express.Router;
-type Req = express.Request | undefined;
-type Res = express.Response | undefined;
-type Next = express.NextFunction | undefined;
+type Req = express.Request;
+type Res = express.Response;
+type Next = express.NextFunction;
 
 type ReqInfo = {
     method: string;
     path: string;
 };
 
-type PromiseString = () => Promise<string>;
-type PromiseVoid = (req?: Req, res?: Res, next?: Next) => Promise<void>;
+type Recipe = {
+    id: number;
+    name: string;
+    healthLabels: string[];
+    cookTimeMinutes: number;
+    prepTimeMinutes: number;
+    ingredients: string[];
+};
 
-export { App, Router, Req, Res, Next, ReqInfo, PromiseString, PromiseVoid };
+export { App, Router, Req, Res, Next, ReqInfo, Recipe };

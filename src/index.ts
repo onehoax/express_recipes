@@ -19,6 +19,16 @@ app.use((req: t.Req, res: t.Res, next: t.Next): void => {
     if (next !== undefined) next();
 });
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+const path: string = "/api/v1/recipes";
+
+app.get("/", (req: t.Req, res: t.Res) => {
+    console.log(req.url);
+    res.redirect(path);
+});
+
 app.use("/api/v1/recipes", router);
 
 const port: string | number = process.env["PORT"] || 8080;
