@@ -17,6 +17,19 @@ async function getAll(): Promise<t.Recipe[]> {
     }
 }
 
+async function save(recipe: t.Recipe): Promise<t.Recipe> {
+    try {
+        const recipes: t.Recipe[] = await getAll();
+        recipe.id = recipes.length + 1;
+        recipes.push(recipe);
+        await fs.writeFile(recipesFilePath, JSON.stringify(recipes));
+        return recipe;
+    } catch (error: unknown) {
+        console.error(error);
+        throw error;
+    }
+}
+
 async function get(id: number): Promise<t.Recipe | undefined> {
     try {
         const recipes: t.Recipe[] = await getAll();
@@ -39,19 +52,6 @@ async function update(id: number, updated: t.Recipe): Promise<t.Recipe> {
         });
         await fs.writeFile(recipesFilePath, JSON.stringify(updatedRecipes));
         return updated;
-    } catch (error: unknown) {
-        console.error(error);
-        throw error;
-    }
-}
-
-async function save(recipe: t.Recipe): Promise<t.Recipe> {
-    try {
-        const recipes: t.Recipe[] = await getAll();
-        recipe.id = recipes.length + 1;
-        recipes.push(recipe);
-        await fs.writeFile(recipesFilePath, JSON.stringify(recipes));
-        return recipe;
     } catch (error: unknown) {
         console.error(error);
         throw error;

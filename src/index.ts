@@ -1,8 +1,12 @@
 import express from "express";
 import * as t from "./types.js";
 import { router } from "./router/recipes.js";
+import cors from "cors";
+import { handleError } from "./utils/error.js";
 
 const app: t.App = express();
+
+app.use(cors());
 
 app.use((req: t.Req, res: t.Res, next: t.Next): void => {
     let info: t.ReqInfo;
@@ -29,7 +33,9 @@ app.get("/", (req: t.Req, res: t.Res) => {
     res.redirect(path);
 });
 
-app.use("/api/v1/recipes", router);
+app.use(path, router);
+
+app.use(handleError);
 
 const port: string | number = process.env["PORT"] || 8080;
 
