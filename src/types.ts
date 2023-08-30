@@ -20,4 +20,15 @@ type Recipe = {
     ingredients: string[];
 };
 
-export { App, Router, Req, Res, Next, ReqInfo, Recipe };
+type User = {
+    id: number;
+    name: string;
+    email: string;
+    password: string;
+};
+
+type Token = {
+    token: string;
+};
+
+export { App, Router, Req, Res, Next, ReqInfo, Recipe, User, Token };

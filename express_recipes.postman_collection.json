@@ -1,0 +1,235 @@
+{
+    "info": {
+        "_postman_id": "6f5ab3cd-2f2f-4465-b7b7-c22160fbff35",
+        "name": "express_recipes",
+        "description": "Simple RESTful API built with NodeJS, ExpressJS, PassportJS, and JWT.\n\nIt mocks CRUD operations on JSON files using a service and controller later.\n\nGET requests are allowed for all users; POST, PUT, and DELETE requests are only allowed for authenticated users.\n\nYou can get authenticated by sending a POST signup request, which will return a JWT that you can attach to requests that need authentication.\n\nSending a POST login request after you have signed up will also return the needed JWT.",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "_exporter_id": "29391002"
+    },
+    "item": [
+        {
+            "name": "Get all request",
+            "request": {
+                "auth": {
+                    "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "localhost:3000",
+                    "host": ["localhost"],
+                    "port": "3000"
+                },
+                "description": "Get all the recipes stored in recipes.json file."
+            },
+            "response": []
+        },
+        {
+            "name": "Get single request",
+            "request": {
+                "auth": {
+                    "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "localhost:3000/api/v1/recipes/10",
+                    "host": ["localhost"],
+                    "port": "3000",
+                    "path": ["api", "v1", "recipes", "10"]
+                },
+                "description": "Get a single recipe stored in the recipes.json file; specify the ID at the end of the URL."
+            },
+            "response": []
+        },
+        {
+            "name": "Unauthorized request",
+            "request": {
+                "auth": {
+                    "type": "noauth"
+                },
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"name\": \"Edamame recipes\",\n  \"healthLabels\": [\n    \"Sugar-Conscious\",\n    \"Vegan\",\n    \"Vegetarian\",\n    \"Peanut-Free\",\n    \"Tree-Nut-Free\",\n    \"Alcohol-Free\"\n  ],\n  \"cookTimeMinutes\": 127,\n  \"prepTimeMinutes\": 20,\n  \"ingredients\": [\n    \"salt\",\n    \"1 one-pound bag edamame\",\n    \"1 teaspoon Seasoned Salt\"\n  ]\n}"
+                },
+                "url": {
+                    "raw": "localhost:3000/api/v1/recipes",
+                    "host": ["localhost"],
+                    "port": "3000",
+                    "path": ["api", "v1", "recipes"]
+                },
+                "description": "Sample unauthorized request; attempting to post a new recipe to the recipes.json file without a JWT."
+            },
+            "response": []
+        },
+        {
+            "name": "Signup request",
+            "protocolProfileBehavior": {
+                "disabledSystemHeaders": {
+                    "content-type": true
+                }
+            },
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"name\": \"Valen\",\n    \"email\": \"valen@gmail.com\",\n    \"password\": \"someotherpassword\"\n}"
+                },
+                "url": {
+                    "raw": "localhost:3000/api/v1/users/signup",
+                    "host": ["localhost"],
+                    "port": "3000",
+                    "path": ["api", "v1", "users", "signup"]
+                },
+                "description": "Sign up; post a new user to the user.json file; will return a JWT that you can attach to requests that need authorization or an error if user has already signed up."
+            },
+            "response": []
+        },
+        {
+            "name": "Login request",
+            "protocolProfileBehavior": {
+                "disabledSystemHeaders": {
+                    "content-type": true
+                }
+            },
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"name\": \"Valen\",\n    \"email\": \"valen@gmail.com\",\n    \"password\": \"someotherpassword\"\n}"
+                },
+                "url": {
+                    "raw": "localhost:3000/api/v1/users/login",
+                    "host": ["localhost"],
+                    "port": "3000",
+                    "path": ["api", "v1", "users", "login"]
+                },
+                "description": "Log in; authenticate a user against the user.json file; will return a JWT (if the user exists) that you can attach to requests that need authorization, or an error if user doesn't exists in the file."
+            },
+            "response": []
+        },
+        {
+            "name": "Authorized post request",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjkzMzU2MTUxLCJleHAiOjE2OTM0NDI1NTF9.a-W1XEP43dGY7R7olDkrH8W7wyAUXw81mK0xIGpcJa0",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"name\": \"Edamame recipes\",\n  \"healthLabels\": [\n    \"Sugar-Conscious\",\n    \"Vegan\",\n    \"Vegetarian\",\n    \"Peanut-Free\",\n    \"Tree-Nut-Free\",\n    \"Alcohol-Free\"\n  ],\n  \"cookTimeMinutes\": 127,\n  \"prepTimeMinutes\": 20,\n  \"ingredients\": [\n    \"salt\",\n    \"1 one-pound bag edamame\",\n    \"1 teaspoon Seasoned Salt\"\n  ]\n}"
+                },
+                "url": {
+                    "raw": "localhost:3000/api/v1/recipes",
+                    "host": ["localhost"],
+                    "port": "3000",
+                    "path": ["api", "v1", "recipes"]
+                },
+                "description": "Post a new recipe to the recipes.json file with proper authorization: a JWT from the signup/login endpoints."
+            },
+            "response": []
+        },
+        {
+            "name": "Authorized put request",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjkzMzU2Mzc4LCJleHAiOjE2OTM0NDI3Nzh9.pCyPamT-Cg3uBjABjYbxyVyc3gQHNbwM20k1oi_Fngg",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"name\": \"MY RECIPEEE\",\n  \"healthLabels\": [\n    \"Sugar-Conscious\",\n    \"Vegan\",\n    \"Vegetarian\",\n    \"Peanut-Free\",\n    \"Tree-Nut-Free\",\n    \"Alcohol-Free\"\n  ],\n  \"cookTimeMinutes\": 127,\n  \"prepTimeMinutes\": 20,\n  \"ingredients\": [\n    \"salt\",\n    \"1 one-pound bag edamame\",\n    \"1 teaspoon Seasoned Salt\"\n  ]\n}"
+                },
+                "url": {
+                    "raw": "localhost:3000/api/v1/recipes/11",
+                    "host": ["localhost"],
+                    "port": "3000",
+                    "path": ["api", "v1", "recipes", "11"]
+                },
+                "description": "Update an existing recipe on the recipes.json file with proper authorization: a JWT from the signup/login endpoints. Specify the ID at the end of the URL."
+            },
+            "response": []
+        },
+        {
+            "name": "Authorized delete request",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjkzMzU2Mzc4LCJleHAiOjE2OTM0NDI3Nzh9.pCyPamT-Cg3uBjABjYbxyVyc3gQHNbwM20k1oi_Fngg",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "DELETE",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "localhost:3000/api/v1/recipes/11",
+                    "host": ["localhost"],
+                    "port": "3000",
+                    "path": ["api", "v1", "recipes", "11"]
+                },
+                "description": "Delete an existing recipe from the recipes.json file with proper authorization: a JWT from the signup/login endpoints. Specify the ID at the end of the URL."
+            },
+            "response": []
+        }
+    ]
+}

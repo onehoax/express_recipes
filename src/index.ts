@@ -1,8 +1,10 @@
 import express from "express";
 import * as t from "./types.js";
 import { router } from "./router/recipes.js";
+import { router as userRouter } from "./router/user.js";
 import cors from "cors";
 import { handleError } from "./utils/error.js";
+import * as auth from "./middleware/auth.js";
 
 const app: t.App = express();
 
@@ -26,14 +28,18 @@ app.use((req: t.Req, res: t.Res, next: t.Next): void => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const path: string = "/api/v1/recipes";
+app.use(auth.initialize());
+
+const recipesPath: string = "/api/v1/recipes";
+const usersPath: string = "/api/v1/users";
 
 app.get("/", (req: t.Req, res: t.Res) => {
     console.log(req.url);
-    res.redirect(path);
+    res.redirect(recipesPath);
 });
 
-app.use(path, router);
+app.use(recipesPath, router);
+app.use(usersPath, userRouter);
 
 app.use(handleError);
 
