@@ -12,7 +12,7 @@
     "scripts": {
         "start": "tsc && node ./dist/service/user.js",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "nodemon --watch ./src --ext ts --exec ts-node-esm ./src/index.ts",
+        "dev": "nodemon --watch src --ext ts --exec ts-node-esm src/index.ts",
         "tsc": "tsc",
         "lint": "eslint src/",
         "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json|md)\""
